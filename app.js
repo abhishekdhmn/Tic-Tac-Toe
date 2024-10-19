@@ -8,6 +8,8 @@ let winner = document.querySelector(".winner");
 
 let turnX = true;
 
+let countClick = 0;
+
 let winPatterns = [
     [0,1,2],
     [3,4,5],
@@ -21,6 +23,7 @@ let winPatterns = [
 
 boxes.forEach((box) => {
     box.addEventListener("click",() => {
+        
         if(turnX==true){
             box.innerText = "X";
             turnX=false;
@@ -30,8 +33,12 @@ boxes.forEach((box) => {
             turnX=true;
         }
         box.disabled = true;
-
-        checkWinner();
+        countClick++;
+        let winStatus = checkWinner();
+        if(countClick===9 && winStatus!=true){
+            winner.innerText = "Game is Draw";
+            winner.classList.remove("hide");
+        }
     });
 });
 
@@ -42,6 +49,7 @@ checkWinner = () => {
                 winner.innerText = `Player ${boxes[pattern[0]].innerText} Won`
                 winner.classList.remove("hide");
                 stopGame();
+                return true;
             }
         }
     }
@@ -59,5 +67,6 @@ resetButton.addEventListener("click",() => {
         box.disabled=false;
     }
     turnX=true;
+    countClick=0;
     winner.classList.add("hide");
 });

@@ -9,6 +9,10 @@ body{
     /*color: */
 }
 
+#heading {
+    margin-top: 30px;
+    font-size: 45px;
+}
 .container {
     height: 70vh;
     display: flex;
